@@ -12,7 +12,7 @@ uint16_t red = 0xF720Df;
 uint16_t redRawData[71] = {9014, 4502,  584, 572,  582, 546,  582, 548,  556, 572,  584, 546,  556, 566,  590, 548,  574, 556,  580, 1656,  558, 1656,  580, 1680,  556, 1680,  558, 572,  584, 1630,  582, 1654,  608, 1632,  604, 550,  556, 574,  556, 1656,  582, 550,  580, 552,  578, 550,  580, 550,  580, 548,  582, 1654,  584, 1654,  584, 546,  584, 1654,  584, 1652,  584, 1654,  582, 1654,  592, 1646,  606, 41044,  9012, 2236,  606};  // NEC F720DF
 //Protocol Protocol  : NEC
 
-#define IR_LED 4 
+#define IR_LED 4
 IRsend irsend(IR_LED);  // Set the GPIO to be used to sending the message.
 
 const uint32_t kBaudRate = 115200;
@@ -81,24 +81,34 @@ void setup() {
   irrecv.enableIRIn();  // Start the receiver
 }
 
+
+int waitTime = 30000; //30 seconds
+unsigned long timeNow = 0;
+void sendIRSignal() {
+  if ((unsigned long)(millis() - timeNow) > waitTime) {
+    timeNow = millis();
+    Serial.println("Send NEC");
+    irsend.sendNEC(0xF710EF, 32);
+  }
+}
+
 // The repeating section of the code
 //
 void loop() {
-  delay(10000);
-  Serial.println("a rawData capture from IRrecvDumpV2");
-  irsend.sendRaw(redRawData, 71, 38);  // Send a raw data capture at 38kHz: should be fine for NEC Protocol
-  
+  sendIRSignal();
+
   // Check if the IR code has been received.
   if (irrecv.decode(&results)) {
     // Display a crude timestamp.
     uint32_t now = millis();
+    Serial.printf("GOT SOMETHING\n");
     Serial.printf("Timestamp : %06u.%03u\n", now / 1000, now % 1000);
     if (results.overflow)
       Serial.printf(
-          "WARNING: IR code is too big for buffer (>= %d). "
-          "This result shouldn't be trusted until this is resolved. "
-          "Edit & increase kCaptureBufferSize.\n",
-          kCaptureBufferSize);
+        "WARNING: IR code is too big for buffer (>= %d). "
+        "This result shouldn't be trusted until this is resolved. "
+        "Edit & increase kCaptureBufferSize.\n",
+        kCaptureBufferSize);
     // Display the basic output of what we found.
     Serial.print(resultToHumanReadableBasic(&results));
     yield();  // Feed the WDT as the text output can take a while to print.
