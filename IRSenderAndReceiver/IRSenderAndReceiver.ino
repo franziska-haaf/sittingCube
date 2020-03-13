@@ -64,8 +64,7 @@ void sendIRSignal() {
   if ((unsigned long)(millis() - timeNow) > waitTime) {
     timeNow = millis();
     Serial.println("Send Data");
-    //irsend.sendNEC(0xF710EF, 32);
-    irsend.sendRaw(rawData, 71, 38);  // Send a raw data capture at 38kHz.
+    irsend.sendRaw(greenRaw, 71, 38);  // Send a raw data capture at 38kHz.
   }
 }
 
