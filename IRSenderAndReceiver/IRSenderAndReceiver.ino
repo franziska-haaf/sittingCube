@@ -53,10 +53,6 @@ uint16_t purpleRaw[67] = {8962, 4528,  544, 580,  548, 604,  522, 584,  542, 584
 //#d685ff   blue + red
 uint16_t lightPurpleRaw[67] = {9012, 4494,  582, 546,  608, 522,  610, 518,  580, 548,  582, 548,  610, 518,  584, 544,  582, 546,  580, 1654,  578, 1656,  580, 1654,  582, 1652,  584, 546,  584, 1650,  582, 1652,  582, 1652,  584, 544,  582, 1654,  582, 1652,  582, 546,  582, 1652,  580, 548,  580, 548,  580, 548,  580, 1654,  580, 548,  580, 548,  580, 1654,  578, 550,  578, 1654,  580, 1656,  578, 1654,  578};  // NEC F76897
 
-uint16_t* colors[16] = {*whiteRaw, *redRaw, *orangeRaw, lightOrangeRaw, citrusRaw, yellowRaw, greenRaw, turquoiseRaw, lightBlueRaw,
-                        middleBlueRaw, middleBlue2Raw, blueRaw, slightlyPurpleBlueRaw, lilacRaw, purpleRaw, lightPurpleRaw
-                       };
-
 /*
   Color Mixing:
   - max. 3 colors
@@ -97,29 +93,28 @@ void setup() {
 
 int waitTime = 10000; //10 seconds
 unsigned long timeNow = 0;
+int colorCounter = 0;
 void sendIRSignal() {
   if ((unsigned long)(millis() - timeNow) > waitTime) {
     timeNow = millis();
     Serial.println("Send Data");
-    irsend.sendRaw(greenRaw, 71, 38);  // Send a raw data capture at 38kHz.
+
+    if (colorCounter == 2) {
+      colorCounter = 0;
+    }
+    if (colorCounter == 0) {
+      irsend.sendRaw(greenRaw, 71, 38);  // Send a raw data capture at 38kHz.
+    }
+    if (colorCounter == 1) {
+      irsend.sendRaw(redRaw, 71, 38);  // Send a raw data capture at 38kHz.
+    }
+    colorCounter++;
   }
 }
 
-int colorToSet = 0;
-void sendIRSignalAllColors() {
-  if ((unsigned long)(millis() - timeNow) > waitTime) {
-    timeNow = millis();
-    if (colorToSet == 16) {
-      colorToSet = 0;
-    }
-    Serial.println("Send Data");
-    irsend.sendRaw(colors[colorToSet], 71, 38);  // Send a raw data capture at 38kHz.
-    colorToSet++;
-  }
-}
 
 void loop() {
-  sendIRSignalAllColors();
+  sendIRSignal();
 
   // Check if the IR code has been received.
   if (irrecv.decode(&results)) {
