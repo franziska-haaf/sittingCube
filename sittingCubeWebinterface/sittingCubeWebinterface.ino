@@ -108,6 +108,7 @@ void loop() {
             client.print(redBottleWebpageSnippet);
             client.print(blueBottleWebpageSnippet);
             client.print(greenBottleWebpageSnippet);
+            client.print("</div>");
             client.print(resetButtonWebpageSnippet);
             client.print("</body></html>");
 
