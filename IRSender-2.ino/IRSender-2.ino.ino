@@ -106,7 +106,7 @@ void loop() {
             client.print(styleWebpageSnippet);
             client.print("</head>");
             client.print("<body> <div id=\"bottleWrapper\">");
-            client.print(changeButton);
+            client.print(redBottleWebpageSnippet);
             client.print("</div></body></html>");
 
             // The HTTP response ends with another blank line

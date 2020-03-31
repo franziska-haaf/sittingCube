@@ -1,18 +1,24 @@
-#include <ESP8266WiFi.h>
-#include <WiFiClient.h>
-#include <ESP8266WebServer.h>
 #include <Arduino.h>
 #include <IRsend.h>
 #include <IRremoteESP8266.h>
 #include <IRutils.h>
-#include "wifiAccessData.h"
-#include "webpage-snippets.h"
 #include "infraredCodes.h"
 
+#include <ESP8266WiFi.h>
+#include <WiFiClient.h>
+#include <ESP8266WebServer.h>
+#include "wifiAccessData.h"
+#include "webpage-snippets.h"
+
+//Pins
 #define IR_TRANSMITTER_PIN 4
 
-WiFiServer server(80); //port 80
+//Values
+IRsend irsend(IR_TRANSMITTER_PIN);
 
+const uint32_t kBaudRate = 115200;
+
+WiFiServer server(80); //port 80
 // Variable to store the HTTP request
 String header;
 
@@ -23,10 +29,10 @@ unsigned long previousTime = 0;
 // Define timeout time in milliseconds (example: 2000ms = 2s)
 const long timeoutTime = 2000;
 
-IRsend irsend(IR_TRANSMITTER_PIN);  // Set the GPIO to be used to sending the message.
-
 void setup() {
-  Serial.begin(115200);
+  irsend.begin();
+  
+  Serial.begin(kBaudRate);
   while (!Serial)
     delay(50);
   Serial.println();
@@ -47,9 +53,7 @@ void setup() {
   server.begin();
 }
 
-void loop() {
-  sendIRSignal();
-  
+void loop() {  
   WiFiClient client = server.available();   // Listen for incoming clients
   
   if (client) {                             // If a new client connects,
@@ -75,15 +79,16 @@ void loop() {
             client.println();
 
             //CHANGE THE COLOR -----------------------------------------
-            if (header.indexOf("GET /red/add") >= 0) {
+            if (header.indexOf("GET /red") >= 0) {
               Serial.println("Red");
-              irsend.sendRaw(redRaw, 71, 38);
+              //irsend.sendRaw(redRaw, 71, 38);
+              sendIRSignal();
             }
-            else if (header.indexOf("GET /blue/add") >= 0) {
+            else if (header.indexOf("GET /blue") >= 0) {
               Serial.println("Blue");
               irsend.sendRaw(blueRaw, 71, 38);
             }
-            else if (header.indexOf("GET /green/add") >= 0) {
+            else if (header.indexOf("GET /green") >= 0) {
               Serial.println("Green");
               irsend.sendRaw(greenRaw, 71, 38);
             }
@@ -133,23 +138,17 @@ void loop() {
   }
 }
 
-int waitTime = 10000; //10 seconds
-unsigned long timeNow = 0;
 int colorCounter = 0;
 void sendIRSignal() {
-  if ((unsigned long)(millis() - timeNow) > waitTime) {
-    timeNow = millis();
-    Serial.println("Send Data");
-
-    if (colorCounter == 2) {
-      colorCounter = 0;
-    }
-    if (colorCounter == 0) {
-      irsend.sendRaw(greenRaw, 71, 38);  // Send a raw data capture at 38kHz.
-    }
-    if (colorCounter == 1) {
-      irsend.sendRaw(redRaw, 71, 38);  // Send a raw data capture at 38kHz.
-    }
-    colorCounter++;
+  Serial.println("Send Data");
+  if (colorCounter == 2) {
+    colorCounter = 0;
   }
+  if (colorCounter == 0) {
+    irsend.sendRaw(greenRaw, 71, 38);  // Send a raw data capture at 38kHz.
+  }
+  if (colorCounter == 1) {
+    irsend.sendRaw(redRaw, 71, 38);  // Send a raw data capture at 38kHz.
+  }
+  colorCounter++;
 }

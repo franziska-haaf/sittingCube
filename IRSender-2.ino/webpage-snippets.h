@@ -33,7 +33,7 @@ const char* changeButton =
   "</g></g></svg></a></div>";
 
 const char* redBottleWebpageSnippet =
-  "<div class=\"bottle\"><a href=\"/red/add\">"
+  "<div class=\"bottle\"><a href=\"/change\">"
   "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 13.04 21.64\">"
   "</defs><g id=\"Red_Layer_1\" data-name=\"Red_Layer 1\"><g id=\"Red_Layer_2\" data-name=\"Red_Layer 2\">"
   "<path class=\"svg-outline\" d=\"M9,9.62V2.18h.3a.57.57,0,0,0,.57-.56V1.07A.58.58,0,0,0,9.27.5H4a.57.57,0,0,0-.57.57v.55A.56.56,0,0,0,4,2.18h.22V9.56A6,6,0,1,0,9,9.62Z\" />"
@@ -41,7 +41,7 @@ const char* redBottleWebpageSnippet =
   "</g></g></svg></a></div>";
 
 const char* blueBottleWebpageSnippet =
-  "<div class=\"bottle\"><a href=\"/blue/add\">"
+  "<div class=\"bottle\"><a href=\"/blue\">"
   "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 13.04 21.64\">"
   "</defs><g id=\"Blue_Layer_1\" data-name=\"Blue_Layer 1\"><g id=\"Blue_Layer_2\" data-name=\"Blue_Layer 2\">"
   "<path class=\"svg-outline\" d=\"M9,9.62V2.18h.3a.57.57,0,0,0,.57-.56V1.07A.58.58,0,0,0,9.27.5H4a.57.57,0,0,0-.57.57v.55A.56.56,0,0,0,4,2.18h.22V9.56A6,6,0,1,0,9,9.62Z\" />"
@@ -49,7 +49,7 @@ const char* blueBottleWebpageSnippet =
   "</g></g></svg></a></div>";
 
 const char* greenBottleWebpageSnippet =
-  "<div class=\"bottle\"><a href=\"/green/add\">"
+  "<div class=\"bottle\"><a href=\"/green\">"
   "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 13.04 21.64\">"
   "</defs><g id=\"Green_Layer_1\" data-name=\"Green_Layer 1\"><g id=\"Green_Layer_2\" data-name=\"Green_Layer 2\">"
   "<path class=\"svg-outline\" d=\"M9,9.62V2.18h.3a.57.57,0,0,0,.57-.56V1.07A.58.58,0,0,0,9.27.5H4a.57.57,0,0,0-.57.57v.55A.56.56,0,0,0,4,2.18h.22V9.56A6,6,0,1,0,9,9.62Z\" />"
