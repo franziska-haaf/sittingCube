@@ -1,16 +1,17 @@
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
 #include <ESP8266WebServer.h>
+#include <Arduino.h>
+#include <IRsend.h>
+#include <IRremoteESP8266.h>
+#include <IRutils.h>
 #include "wifiAccessData.h"
 #include "webpage-snippets.h"
+#include "infraredCodes.h"
 
-// Load Wi-Fi library
-#include <ESP8266WiFi.h>
+#define IR_TRANSMITTER_PIN 4
 
-String buttoState = "off";
-
-// Set web server port number to 80
-WiFiServer server(80);
+WiFiServer server(80); //port 80
 
 // Variable to store the HTTP request
 String header;
@@ -22,10 +23,13 @@ unsigned long previousTime = 0;
 // Define timeout time in milliseconds (example: 2000ms = 2s)
 const long timeoutTime = 2000;
 
+IRsend irsend(IR_TRANSMITTER_PIN);  // Set the GPIO to be used to sending the message.
+
 void setup() {
-  Serial.begin(74880);
-  pinMode(LED_BUILTIN, OUTPUT);
-  digitalWrite(LED_BUILTIN, LOW);
+  Serial.begin(115200);
+  while (!Serial)
+    delay(50);
+  Serial.println();
 
   // Connect to Wi-Fi network with SSID and password
   Serial.print("Connecting to ");
@@ -44,8 +48,10 @@ void setup() {
 }
 
 void loop() {
+  sendIRSignal();
+  
   WiFiClient client = server.available();   // Listen for incoming clients
-
+  
   if (client) {                             // If a new client connects,
     Serial.println("New Client.");          // print a message out in the serial port
     String currentLine = "";                // make a String to hold incoming data from the client
@@ -71,14 +77,25 @@ void loop() {
             //CHANGE THE COLOR -----------------------------------------
             if (header.indexOf("GET /red/add") >= 0) {
               Serial.println("Red");
-              //todo: set color
-            } else if (header.indexOf("GET /blue/add") >= 0) {
-              Serial.println("Blue");
-              //todo: set color
-            } else if (header.indexOf("GET /green/add") >= 0) {
-              Serial.println("Green");
-              //todo: set color
+              irsend.sendRaw(redRaw, 71, 38);
             }
+            else if (header.indexOf("GET /blue/add") >= 0) {
+              Serial.println("Blue");
+              irsend.sendRaw(blueRaw, 71, 38);
+            }
+            else if (header.indexOf("GET /green/add") >= 0) {
+              Serial.println("Green");
+              irsend.sendRaw(greenRaw, 71, 38);
+            }
+            else if (header.indexOf("GET /admin/on") >= 0) {
+              Serial.println("On");
+              irsend.sendRaw(onRaw, 71, 38);
+            }
+            else if (header.indexOf("GET /admin/off") >= 0) {
+              Serial.println("Off");
+              irsend.sendRaw(offRaw, 71, 38);
+            }
+
 
             //DISPLAY PAGE -----------------------------------------
             client.print("<!DOCTYPE html><html>");
@@ -95,7 +112,7 @@ void loop() {
             client.print("</body></html>");
 
             // The HTTP response ends with another blank line
-            client.print();
+            client.println();
             // Break out of the while loop
             break;
           } else { // if you got a newline, then clear currentLine
@@ -112,5 +129,26 @@ void loop() {
     client.stop();
     Serial.println("Client disconnected.");
     Serial.println("");
+  }
+}
+
+int waitTime = 10000; //10 seconds
+unsigned long timeNow = 0;
+int colorCounter = 0;
+void sendIRSignal() {
+  if ((unsigned long)(millis() - timeNow) > waitTime) {
+    timeNow = millis();
+    Serial.println("Send Data");
+
+    if (colorCounter == 2) {
+      colorCounter = 0;
+    }
+    if (colorCounter == 0) {
+      irsend.sendRaw(greenRaw, 71, 38);  // Send a raw data capture at 38kHz.
+    }
+    if (colorCounter == 1) {
+      irsend.sendRaw(redRaw, 71, 38);  // Send a raw data capture at 38kHz.
+    }
+    colorCounter++;
   }
 }
