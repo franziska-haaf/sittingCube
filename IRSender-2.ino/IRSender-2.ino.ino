@@ -8,6 +8,7 @@
 #include <WiFiClient.h>
 #include <ESP8266WebServer.h>
 #include "wifiAccessData.h"
+#include "webpage-snippets.h"
 
 //Pins
 #define IR_TRANSMITTER_PIN 4
@@ -53,24 +54,24 @@ void setup() {
 
 int colorCounter = 0;
 void sendIRSignal() {
-    Serial.println("Send Data");
-    if (colorCounter == 2) {
-      colorCounter = 0;
-    }
-    if (colorCounter == 0) {
-      irsend.sendRaw(greenRaw, 71, 38);  // Send a raw data capture at 38kHz.
-    }
-    if (colorCounter == 1) {
-      irsend.sendRaw(redRaw, 71, 38);  // Send a raw data capture at 38kHz.
-    }
-    colorCounter++;
+  Serial.println("Send Data");
+  if (colorCounter == 2) {
+    colorCounter = 0;
+  }
+  if (colorCounter == 0) {
+    irsend.sendRaw(greenRaw, 71, 38);  // Send a raw data capture at 38kHz.
+  }
+  if (colorCounter == 1) {
+    irsend.sendRaw(redRaw, 71, 38);  // Send a raw data capture at 38kHz.
+  }
+  colorCounter++;
 }
 
 
 void loop() {
   WiFiClient client = server.available();   // Listen for incoming clients
 
-   if (client) {                             // If a new client connects,
+  if (client) {                             // If a new client connects,
     Serial.println("New Client.");          // print a message out in the serial port
     String currentLine = "";                // make a String to hold incoming data from the client
     currentTime = millis();
@@ -93,16 +94,20 @@ void loop() {
             client.println();
 
             //CHECK
-             if (header.indexOf("GET /change") >= 0) {
-             Serial.println("GET /change");
-             sendIRSignal();
+            if (header.indexOf("GET /change") >= 0) {
+              Serial.println("GET /change");
+              sendIRSignal();
             }
-            
+
             //DISPLAY PAGE -----------------------------------------
             client.print("<!DOCTYPE html><html>");
             client.print("<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">");
-            client.print("<link rel=\"icon\" href=\"data:,\"> </head>");
-            client.println("<body> <div id=\"bottleWrapper\">Hi</id></body></html>");
+            client.print("<link rel=\"icon\" href=\"data:,\">");
+            client.print(styleWebpageSnippet);
+            client.print("</head>");
+            client.print("<body> <div id=\"bottleWrapper\">");
+            client.print(changeButton);
+            client.print("</div></body></html>");
 
             // The HTTP response ends with another blank line
             client.println();
