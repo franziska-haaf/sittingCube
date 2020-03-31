@@ -31,7 +31,7 @@ const long timeoutTime = 2000;
 
 void setup() {
   irsend.begin();
-  
+
   Serial.begin(kBaudRate);
   while (!Serial)
     delay(50);
@@ -53,9 +53,9 @@ void setup() {
   server.begin();
 }
 
-void loop() {  
+void loop() {
   WiFiClient client = server.available();   // Listen for incoming clients
-  
+
   if (client) {                             // If a new client connects,
     Serial.println("New Client.");          // print a message out in the serial port
     String currentLine = "";                // make a String to hold incoming data from the client
@@ -81,8 +81,7 @@ void loop() {
             //CHANGE THE COLOR -----------------------------------------
             if (header.indexOf("GET /red") >= 0) {
               Serial.println("Red");
-              //irsend.sendRaw(redRaw, 71, 38);
-              sendIRSignal();
+              irsend.sendRaw(redRaw, 71, 38);
             }
             else if (header.indexOf("GET /blue") >= 0) {
               Serial.println("Blue");
@@ -91,6 +90,26 @@ void loop() {
             else if (header.indexOf("GET /green") >= 0) {
               Serial.println("Green");
               irsend.sendRaw(greenRaw, 71, 38);
+            }
+            else if (header.indexOf("GET /orange") >= 0) {
+              Serial.println("Green");
+              irsend.sendRaw(orangeRaw, 71, 38);
+            }
+            else if (header.indexOf("GET /yellow") >= 0) {
+              Serial.println("Green");
+              irsend.sendRaw(yellowRaw, 71, 38);
+            }
+            else if (header.indexOf("GET /turquoise") >= 0) {
+              Serial.println("Green");
+              irsend.sendRaw(turquoiseRaw, 71, 38);
+            }
+            else if (header.indexOf("GET /lilac") >= 0) {
+              Serial.println("Green");
+              irsend.sendRaw(lilacRaw, 71, 38);
+            }
+            else if (header.indexOf("GET /citrus") >= 0) {
+              Serial.println("Green");
+              irsend.sendRaw(citrusRaw, 71, 38);
             }
             else if (header.indexOf("GET /admin/on") >= 0) {
               Serial.println("On");
@@ -110,11 +129,15 @@ void loop() {
             client.print("</head>");
 
             client.println("<body> <div id=\"bottleWrapper\">");
-            client.print(redBottleWebpageSnippet);
             client.print(blueBottleWebpageSnippet);
+            client.print(lilacBottleWebpageSnippet);
+            client.print(turquoiseBottleWebpageSnippet);
             client.print(greenBottleWebpageSnippet);
+            client.print(orangeBottleWebpageSnippet);
+            client.print(yellowBottleWebpageSnippet);
+            client.print(redBottleWebpageSnippet);
             client.print("</div>");
-            client.print(resetButtonWebpageSnippet);
+            //client.print(resetButtonWebpageSnippet);
             client.print("</body></html>");
 
             // The HTTP response ends with another blank line
@@ -136,19 +159,4 @@ void loop() {
     Serial.println("Client disconnected.");
     Serial.println("");
   }
-}
-
-int colorCounter = 0;
-void sendIRSignal() {
-  Serial.println("Send Data");
-  if (colorCounter == 2) {
-    colorCounter = 0;
-  }
-  if (colorCounter == 0) {
-    irsend.sendRaw(greenRaw, 71, 38);  // Send a raw data capture at 38kHz.
-  }
-  if (colorCounter == 1) {
-    irsend.sendRaw(redRaw, 71, 38);  // Send a raw data capture at 38kHz.
-  }
-  colorCounter++;
 }

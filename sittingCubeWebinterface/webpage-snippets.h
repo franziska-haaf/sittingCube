@@ -19,7 +19,7 @@ const char* styleWebpageSnippet =
   ".light-purple {fill: #d685ff;}"
   ".button { background-color: #fff;border: 4px solid #565655;border-radius: 10px;color: #565655;padding: 16px 40px;"
   "text-decoration: none;font-size: 40px;cursor: pointer;margin-top: 20px;}"
-  ".bottle {display: inline-block; width: 100px;padding: 10px;}"
+  ".bottle {display: inline-block; width: 200px;padding: 10px;}"
   ".svg-outline {fill: none; stroke: #565655;stroke-miterlimit: 10;}"
   ".svg-white-fill {fill: #fff;}"
   "</style>";
@@ -46,6 +46,46 @@ const char* greenBottleWebpageSnippet =
   "</defs><g id=\"Green_Layer_1\" data-name=\"Green_Layer 1\"><g id=\"Green_Layer_2\" data-name=\"Green_Layer 2\">"
   "<path class=\"svg-outline\" d=\"M9,9.62V2.18h.3a.57.57,0,0,0,.57-.56V1.07A.58.58,0,0,0,9.27.5H4a.57.57,0,0,0-.57.57v.55A.56.56,0,0,0,4,2.18h.22V9.56A6,6,0,1,0,9,9.62Z\" />"
   "<path class=\"green\" d=\"M8.24,11.34H8V3.91a1,1,0,0,0-1-1h-.8a1,1,0,0,0-1,1V11.3H4.91a4.21,4.21,0,1,0,3.33.05Z\" />"
+  "</g></g></svg></a></div>";
+  
+const char* orangeBottleWebpageSnippet =
+  "<div class=\"bottle\"><a href=\"/orange\">"
+  "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 13.04 21.64\">"
+  "</defs><g id=\"orange_Layer_1\" data-name=\"orange_Layer 1\"><g id=\"orange_Layer_2\" data-name=\"orange_Layer 2\">"
+  "<path class=\"svg-outline\" d=\"M9,9.62V2.18h.3a.57.57,0,0,0,.57-.56V1.07A.58.58,0,0,0,9.27.5H4a.57.57,0,0,0-.57.57v.55A.56.56,0,0,0,4,2.18h.22V9.56A6,6,0,1,0,9,9.62Z\" />"
+  "<path class=\"orange\" d=\"M8.24,11.34H8V3.91a1,1,0,0,0-1-1h-.8a1,1,0,0,0-1,1V11.3H4.91a4.21,4.21,0,1,0,3.33.05Z\" />"
+  "</g></g></svg></a></div>";
+    
+const char* yellowBottleWebpageSnippet =
+  "<div class=\"bottle\"><a href=\"/yellow\">"
+  "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 13.04 21.64\">"
+  "</defs><g id=\"Green_Layer_1\" data-name=\"yellow_Layer 1\"><g id=\"yellow_Layer_2\" data-name=\"yellow_Layer 2\">"
+  "<path class=\"svg-outline\" d=\"M9,9.62V2.18h.3a.57.57,0,0,0,.57-.56V1.07A.58.58,0,0,0,9.27.5H4a.57.57,0,0,0-.57.57v.55A.56.56,0,0,0,4,2.18h.22V9.56A6,6,0,1,0,9,9.62Z\" />"
+  "<path class=\"yellow\" d=\"M8.24,11.34H8V3.91a1,1,0,0,0-1-1h-.8a1,1,0,0,0-1,1V11.3H4.91a4.21,4.21,0,1,0,3.33.05Z\" />"
+  "</g></g></svg></a></div>";
+      
+const char* turquoiseBottleWebpageSnippet =
+  "<div class=\"bottle\"><a href=\"/turquoise\">"
+  "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 13.04 21.64\">"
+  "</defs><g id=\"turquoise_Layer_1\" data-name=\"turquoise_Layer 1\"><g id=\"turquoise_Layer_2\" data-name=\"turquoise_Layer 2\">"
+  "<path class=\"svg-outline\" d=\"M9,9.62V2.18h.3a.57.57,0,0,0,.57-.56V1.07A.58.58,0,0,0,9.27.5H4a.57.57,0,0,0-.57.57v.55A.56.56,0,0,0,4,2.18h.22V9.56A6,6,0,1,0,9,9.62Z\" />"
+  "<path class=\"turquoise\" d=\"M8.24,11.34H8V3.91a1,1,0,0,0-1-1h-.8a1,1,0,0,0-1,1V11.3H4.91a4.21,4.21,0,1,0,3.33.05Z\" />"
+  "</g></g></svg></a></div>";
+        
+const char* lilacBottleWebpageSnippet =
+  "<div class=\"bottle\"><a href=\"/lilac\">"
+  "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 13.04 21.64\">"
+  "</defs><g id=\"lilac_Layer_1\" data-name=\"lilac_Layer 1\"><g id=\"lilac_Layer_2\" data-name=\"lilac_Layer 2\">"
+  "<path class=\"svg-outline\" d=\"M9,9.62V2.18h.3a.57.57,0,0,0,.57-.56V1.07A.58.58,0,0,0,9.27.5H4a.57.57,0,0,0-.57.57v.55A.56.56,0,0,0,4,2.18h.22V9.56A6,6,0,1,0,9,9.62Z\" />"
+  "<path class=\"lilac\" d=\"M8.24,11.34H8V3.91a1,1,0,0,0-1-1h-.8a1,1,0,0,0-1,1V11.3H4.91a4.21,4.21,0,1,0,3.33.05Z\" />"
+  "</g></g></svg></a></div>";
+        
+const char* citrusBottleWebpageSnippet =
+  "<div class=\"bottle\"><a href=\"/citrus\">"
+  "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 13.04 21.64\">"
+  "</defs><g id=\"citrus_Layer_1\" data-name=\"citrus_Layer 1\"><g id=\"citrus_Layer_2\" data-name=\"citrus_Layer 2\">"
+  "<path class=\"svg-outline\" d=\"M9,9.62V2.18h.3a.57.57,0,0,0,.57-.56V1.07A.58.58,0,0,0,9.27.5H4a.57.57,0,0,0-.57.57v.55A.56.56,0,0,0,4,2.18h.22V9.56A6,6,0,1,0,9,9.62Z\" />"
+  "<path class=\"citrus\" d=\"M8.24,11.34H8V3.91a1,1,0,0,0-1-1h-.8a1,1,0,0,0-1,1V11.3H4.91a4.21,4.21,0,1,0,3.33.05Z\" />"
   "</g></g></svg></a></div>";
 
 const char* resetButtonWebpageSnippet = "</div><p><a href=\"/reset\"> <button class=\"button\">reset</button></a></p></div>";
