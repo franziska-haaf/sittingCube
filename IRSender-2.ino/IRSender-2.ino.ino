@@ -11,9 +11,6 @@
 IRsend irsend(IR_TRANSMITTER_PIN);
 
 const uint32_t kBaudRate = 115200;
-const uint16_t kCaptureBufferSize = 1024;
-const uint16_t kMinUnknownSize = 12;
-const uint16_t kTimeout = 15;
 
 void setup() {
   irsend.begin();
