@@ -9,4 +9,4 @@ The file uploaded on the micro controller is https://github.com/binarykittenDE/s
 # Hardware
 - Microcontroller "Geekcreit NodeMcu Lua ESP8266 ESP-12E WIFI" [Amazon](https://www.amazon.de/gp/product/B018E741G4/ref=ppx_yo_dt_b_asin_title_o05_s00?ie=UTF8&psc=1)
 - IR Transmitter and IR Receiver [Amazon](https://www.amazon.de/gp/product/B07BFNGF53/ref=ppx_yo_dt_b_asin_title_o01_s00?ie=UTF8&psc=1)
-- LED sitting cube 40x40 with build in LEDs[Shop](https://www.pkgreen.de/products/40cm-led-wurfel-sitz-hocker)
+- LED sitting cube 40x40 with build in LEDs [Shop](https://www.pkgreen.de/products/40cm-led-wurfel-sitz-hocker)
